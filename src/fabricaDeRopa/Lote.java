@@ -1,0 +1,75 @@
+package fabricaDeRopa;
+import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Comparator;
+
+public class Lote implements Comparable<Lote>{
+    private int numeroLote;
+    private int numeroPieza;
+    private LocalDate fechaFabricacion;
+    private Prenda prendaLote;
+
+    public Lote(int numeroLote, int numeroPieza, LocalDate fechaFabricacion, Prenda prendaLote) {
+        this.numeroLote = numeroLote;
+        this.numeroPieza = numeroPieza;
+        this.fechaFabricacion = fechaFabricacion;
+        this.prendaLote = prendaLote;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Lote lote = (Lote) o;
+        return numeroLote == lote.numeroLote &&
+                numeroPieza == lote.numeroPieza &&
+                Objects.equals(fechaFabricacion, lote.fechaFabricacion) &&
+                Objects.equals(prendaLote, lote.prendaLote);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(numeroLote, numeroPieza, fechaFabricacion, prendaLote);
+    }
+
+    @Override
+    public int compareTo(Lote otro){
+        return Integer.compare(this.numeroLote, otro.numeroLote);
+    }
+
+    public static class ComparadorPorPiezas implements Comparator<Lote> {
+        @Override
+        public int compare(Lote a, Lote b) {
+            return Integer.compare(a.getNumeroPieza(), b.getNumeroPieza());
+        }
+    }
+    public static class ComparadorPorFecha implements Comparator<Lote> {
+        @Override
+        public int compare(Lote a, Lote b) {
+            return a.getFechaFabricacion().compareTo(b.getFechaFabricacion());
+        }
+    }
+
+    public Prenda getPrendaLote() {return prendaLote;}
+    public int getNumeroLote() {return numeroLote;}
+    public int getNumeroPieza() {return numeroPieza;}
+    public LocalDate getFechaFabricacion() {return fechaFabricacion;}
+
+
+    public float getCalcularCostoProduccionLote(){
+        float productoLote=0;
+        productoLote = numeroPieza * prendaLote.getCostoProduccion();
+        return productoLote;
+    }
+
+    public float getCalcularPrecioVentaPieza(){
+        float costoProduccion = 0;
+        costoProduccion = prendaLote.getCostoProduccion() * 1.15f;
+        return costoProduccion;
+    }
+
+    public float getCalcularGananciaVentaLote(){
+        float gananciaVenta = 0;
+        float precioPrendaLote = prendaLote.getCostoProduccion() * 0.05f;
+        gananciaVenta = precioPrendaLote * numeroPieza;
+        return gananciaVenta;
+    }
+}
