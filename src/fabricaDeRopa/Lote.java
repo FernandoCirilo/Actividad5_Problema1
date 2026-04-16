@@ -36,7 +36,14 @@ public class Lote implements Comparable<Lote>{
 
     @Override
     public int compareTo(Lote otro){
-        return Integer.compare(this.numeroLote, otro.numeroLote);
+        int r = 0;
+        if((r = Integer.compare(this.numeroLote,otro.numeroLote))!=0)
+            return r;
+        if((r = Integer.compare(this.numeroPieza,otro.numeroPieza))!=0)
+            return r;
+        if((r = this.fechaFabricacion.compareTo(otro.fechaFabricacion))!=0)
+            return r;
+        return this.prendaLote.compareTo(otro.prendaLote);
     }
 
     public static class ComparadorPorPiezas implements Comparator<Lote> {

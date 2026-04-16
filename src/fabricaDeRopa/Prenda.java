@@ -44,7 +44,16 @@ public class Prenda implements Comparable<Prenda> {
 
     @Override
     public int compareTo(Prenda otra) {
-        return this.modelo.compareTo(otra.modelo);
+        int r=0;
+        if((r = this.modelo.compareTo(otra.modelo))!=0)
+            return r;
+        if ((r = this.tela.compareTo(otra.tela))!=0)
+            return r;
+        if((r = Float.compare(this.costoProduccion, otra.costoProduccion))!=0)
+            return r;
+        if((r = this.genero.compareTo(otra.genero))!=0)
+            return r;
+        return this.temporada.compareTo(otra.temporada);
     }
     public static class ComparadorPrendaPorCosto implements Comparator<Prenda> {
         @Override
