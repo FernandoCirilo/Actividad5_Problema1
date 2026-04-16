@@ -27,7 +27,11 @@ public class Lote implements Comparable<Lote>{
     }
     @Override
     public int hashCode() {
-        return Objects.hash(numeroLote, numeroPieza, fechaFabricacion, prendaLote);
+        int result = Integer.hashCode(numeroLote);
+        result = 31 * result + Integer.hashCode(numeroPieza);
+        result = 31 * result + Objects.hashCode(fechaFabricacion);
+        result = 31 * result + Objects.hashCode(prendaLote);
+        return result;
     }
 
     @Override
